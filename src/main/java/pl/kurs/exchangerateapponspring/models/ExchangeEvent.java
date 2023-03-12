@@ -72,4 +72,17 @@ public class ExchangeEvent {
     public int hashCode() {
         return Objects.hash(id, date, currencyFrom, amountFrom, currencyTo, amountTo, exchangeRate);
     }
+
+    @Override
+    public String toString() {
+        return "ExchangeEvent{" +
+                "id=" + id +
+                ", date=" + date +
+                ", currencyFrom='" + currencyFrom + '\'' +
+                ", amountFrom=" + amountFrom +
+                ", currencyTo='" + currencyTo + '\'' +
+                ", amountTo=" + amountTo +
+                ", exchangeRate=" + exchangeRate +
+                '}';
+    }
 }
