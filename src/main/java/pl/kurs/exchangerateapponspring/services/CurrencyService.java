@@ -2,6 +2,7 @@ package pl.kurs.exchangerateapponspring.services;
 
 import org.springframework.stereotype.Service;
 import pl.kurs.exchangerateapponspring.exceptions.InvalidInputDataException;
+import pl.kurs.exchangerateapponspring.models.ExchangeEvent;
 
 
 import java.math.BigDecimal;
@@ -12,10 +13,11 @@ import java.time.Instant;
 public class CurrencyService implements ICurrencyService {
 
     private IRateService rateService;
+    private IExchangeEventService exchangeEventService;
 
-
-    public CurrencyService(IRateService rateService) {
+    public CurrencyService(IRateService rateService, IExchangeEventService exchangeEventService) {
         this.rateService = rateService;
+        this.exchangeEventService = exchangeEventService;
     }
 
     @Override
@@ -29,6 +31,16 @@ public class CurrencyService implements ICurrencyService {
 
         BigDecimal exchangeResult = rate.multiply(amount);
 
+        exchangeEventService.saveEvent(
+                new ExchangeEvent(
+                        Timestamp.from(Instant.now()),
+                        currencyFrom,
+                        amount,
+                        currencyTo,
+                        exchangeResult,
+                        rate
+                )
+        );
 
         return exchangeResult;
     }
