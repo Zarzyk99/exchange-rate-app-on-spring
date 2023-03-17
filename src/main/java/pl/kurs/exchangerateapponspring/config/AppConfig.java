@@ -6,4 +6,3 @@ public interface AppConfig {
     String PAGE_ENDPOINT = "/fetch-all?from=";
     String PRIVATE_API_KEY = "&api_key=ee8dac5d92-78ce2bfed0-rrkop2";
 }
-g
